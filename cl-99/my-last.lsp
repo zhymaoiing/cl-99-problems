@@ -1,5 +1,5 @@
 (defun my-last (lst)
-  "get the lst element of a list"
+  "get the last element of a list"
   (cond
     ((not lst) nil)
     ((not (rest lst)) (first lst))
