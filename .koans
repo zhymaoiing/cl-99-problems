@@ -2,4 +2,5 @@
  :my-last
  :my-but-last
  :my-nth
+ :my-length
  )
