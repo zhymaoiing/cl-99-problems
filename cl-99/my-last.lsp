@@ -1,3 +1,5 @@
+;; P01 (*) Find the last box of a list.
+
 (defun my-last (lst)
   "get the last element of a list"
   (cond

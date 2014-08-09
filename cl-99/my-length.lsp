@@ -1,3 +1,5 @@
+;; P04 (*) Find the number of elements of a list.
+
 (defun my-length-rec (lst)
   "get the length of a list recursively"
   (if (null lst)
@@ -16,9 +18,9 @@
   "get the length of a list using loop"
   (loop for elem in lst count elem))
 
-(defun test-length-func (nth-func)
+(defun test-length-func (length-func)
   (flet ((test (lst)
-           (assert-equal (length lst) (funcall nth-func lst))))
+           (assert-equal (length lst) (funcall length-func lst))))
     (test '(1 2 3 4 5))
     (test '(1 2))
     (test '(1))

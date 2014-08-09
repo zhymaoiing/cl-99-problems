@@ -29,7 +29,7 @@
 ;; .koans file controls which files in *koan-dir-name* are loaded as
 ;; koans to complete
 (defvar *koan-dir-name* "cl-99")
-(with-open-file (in #P".koans")
+(with-open-file (in #P".koans.lsp")
   (with-standard-io-syntax
     (defvar *all-koans-groups* (read in))))
 
@@ -88,8 +88,8 @@
         (format t "~A has expanded your awareness.~%" koan-name)
         (format t "~A requires more meditation.~%" koan-name))))
 
-(defun print-koan-group-progress (kg-name kg-results)
-  (format t "~%Thinking about ~A~%" kg-name)
+(defun print-koan-group-progress (kg-name kg-level kg-results)
+  (format t "~%Thinking about ~A ~v@{~A~:*~} ~%" kg-name kg-level #\*)
   (dolist (k-result (reverse kg-results))
     (format t "    ")
     (print-one-koan-status k-result))
@@ -101,7 +101,7 @@
 
 (defun any-assert-non-pass-p ()
    (dolist (k-group-result *collected-results*)
-     (dolist (koan-result (second k-group-result))
+     (dolist (koan-result (third k-group-result))
        (dolist (one-assert (second koan-result))
          (if (not (equal one-assert :pass))
              (return-from any-assert-non-pass-p one-assert)))))
@@ -180,18 +180,18 @@
 
 ;; Load all the koans before testing any, and
 ;; count how many total koans there are.
-(loop for koan-group-name in *all-koans-groups*
+(loop for (koan-group-name koan-group-level) in *all-koans-groups*
       do
    (load-koan-group-named koan-group-name))
 
 ;; Run through the koans until reaching the end condition.
 ;; Store the results in *collected-results*
 (setf *collected-results*
-      (loop for koan-group-name in *all-koans-groups*
+      (loop for (koan-group-name koan-group-level) in *all-koans-groups*
             for kg-results = (run-koan-group-named koan-group-name)
-            collect (list koan-group-name kg-results)
+            collect (list koan-group-name koan-group-level kg-results)
             do (if *print-koan-progress*
-                   (print-koan-group-progress koan-group-name kg-results))
+                   (print-koan-group-progress koan-group-name koan-group-level kg-results))
                ;; *proceed-after-failure* is defined in lisp-unit
             until (and (not *proceed-after-failure*) (any-non-pass-p kg-results))))
 

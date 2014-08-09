@@ -1,3 +1,5 @@
+;; P02 (*) Find the last but one box of a list.
+
 (defun my-but-last (lst)
   "get the last but one element of a list"
   (let ((rst (rest lst))) ; (rest nil) => nil

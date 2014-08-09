@@ -1,3 +1,5 @@
+;; P03 (*) Find the K'th element of a list.
+
 (defun my-nth-rec (lst n)
   "get the nth (index from 0) element of a list recursively"
   (labels ((inner-nth-rec (lst n)
