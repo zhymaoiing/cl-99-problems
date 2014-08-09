@@ -5,4 +5,6 @@
  (:my-length 1)
  (:my-reverse 1)
  (:palindrome-list 1)
+ (:flatten 2)
+ (:remove-consecutive-duplicates 2)
  )

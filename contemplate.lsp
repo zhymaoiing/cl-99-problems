@@ -101,7 +101,7 @@
 
 (defun any-assert-non-pass-p ()
    (dolist (k-group-result *collected-results*)
-     (dolist (koan-result (third k-group-result))
+     (dolist (koan-result (second k-group-result))
        (dolist (one-assert (second koan-result))
          (if (not (equal one-assert :pass))
              (return-from any-assert-non-pass-p one-assert)))))
@@ -189,7 +189,7 @@
 (setf *collected-results*
       (loop for (koan-group-name koan-group-level) in *all-koans-groups*
             for kg-results = (run-koan-group-named koan-group-name)
-            collect (list koan-group-name koan-group-level kg-results)
+            collect (list koan-group-name kg-results koan-group-level)
             do (if *print-koan-progress*
                    (print-koan-group-progress koan-group-name koan-group-level kg-results))
                ;; *proceed-after-failure* is defined in lisp-unit

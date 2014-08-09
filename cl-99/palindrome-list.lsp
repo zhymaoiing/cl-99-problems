@@ -4,7 +4,7 @@
   "test if the given list is palindrome"
   (equal lst (reverse lst)))
 
-(defun test-reverse-func (func)
+(defun test-func (func)
   (flet ((test (lst res)
            (assert-equal res (funcall func lst))))
     (test '() t)  
@@ -23,5 +23,5 @@
     (test '(3 "123" #\a) nil)))
 
 ;; TODO: can they be merged with a single method?
-(define-test test-palindrome (test-reverse-func #'palindrome-p))
+(define-test test-palindrome (test-func #'palindrome-p))
 
