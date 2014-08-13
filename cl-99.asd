@@ -14,7 +14,7 @@
                              (:file "my-nth")
                              (:file "my-length")
                              (:file "my-reverse")
-                             (:file "palindrome-list")
+                             (:file "palindrome-p")
                              (:file "flatten")
                              (:file "remove-consecutive-duplicates")))))
 
