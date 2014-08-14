@@ -16,5 +16,7 @@
                              (:file "my-reverse")
                              (:file "palindrome-p")
                              (:file "flatten")
-                             (:file "remove-consecutive-duplicates")))))
+                             (:file "operate-on-consecutive-duplicates")
+                             (:file "remove-consecutive-duplicates")
+                             (:file "pack-consecutive-duplicates")))))
 

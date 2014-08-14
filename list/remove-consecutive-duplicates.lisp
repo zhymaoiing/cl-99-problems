@@ -4,11 +4,9 @@
 
 (defun remove-consecutive-duplicates (lst)
   "remove consecutive duplicates in the given list"
-  (if (null lst) 
-    nil
-    (nreverse (reduce #'(lambda (r x)
-                          (if (equal (first r) x)
-                            r
-                            (push x r)))
-                      (rest lst) ;avoid case like (list nil)
-                      :initial-value (list (first lst))))))
+  (operate-on-consecutive-duplicates
+    lst
+    (lambda (lst) (list (first lst)))
+    (lambda (r x) (if (equal (first r) x)
+                    r
+                    (push x r)))))

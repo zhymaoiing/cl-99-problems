@@ -15,5 +15,6 @@
            :my-reverse-loop
            :palindrome-p
            :flatten
-           :remove-consecutive-duplicates))
+           :remove-consecutive-duplicates  
+           :pack-consecutive-duplicates))
 
