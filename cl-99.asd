@@ -6,9 +6,9 @@
   :version "0.0.1"
   :author "Tao Zhao <zhymaoiing@gmail.com>"
   :license "MIT"
-  :components ((:file "cl-99")
+  :components ((:file "package")
                (:module "list"
-                :depends-on ("cl-99")
+                :depends-on ("package")
                 :components ((:file "my-last")
                              (:file "my-but-last")
                              (:file "my-nth")
