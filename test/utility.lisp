@@ -11,6 +11,13 @@
           ,(let (,@(loop for name in names for sym in syms collect `(,name ,sym))) 
              ,@body)))))
 
+(defmacro execute-macro (macro-name &rest args)
+  (with-gensyms (new-macro)
+    `(progn
+       (defmacro ,new-macro ()
+         (,macro-name ,@args))
+       (,new-macro))))
+
 (defun call-on-list-of-pairs (pair-func data)
   (loop for (x y) in data
         collect (funcall pair-func x y)))
@@ -37,43 +44,44 @@
   (if (verify-valid-data-list data-list)
     (call-on-list-of-pairs
       #'(lambda (lst res) 
-          (if (not (null *print-details*))
+          (if *print-details*
             (format t "apply ~A on ~A expect ~A~%" func lst res))
           (assert-equal res (apply func lst)))
       data-list)))
 
 (defmacro define-cl-test (func name data-list)
-   "Define a test for the given function and test data."
+  "Define a test for the given function and test data."
   `(define-test ,name (test-cl-func ,func ,data-list)))
 
-(defun define-cl-tests (func name-data-list)
+(defmacro inner-define-cl-tests (func name-data-list)
   "Define a set of tests for the given functions and named test data."
-  (macrolet ((inner-define (func name-data-list)
-               (once-only (func name-data-list)
-                 `(progn 
-                    ;(format t ":~A ~A~%" ,func (listp ,func))
-                    ;(format t ".~A~%" ,name-data-list)
-                    (let ((inner-func
-                            (if (functionp ,func)
-                              (list ,func)
-                              ,func)))
-                      ;(loop for f in inner-func do (format t "+ ~A~%" f))
-                      `(list ,@(reduce
-                                 #'append
-                                 (call-on-list-of-pairs
-                                   #'(lambda (name data-list)
-                                       (flet ((get-case-name (i)
-                                                (let ((case-name
-                                                        (if (< 1 (length inner-func))
-                                                          (intern (format nil "~A-~A" name (1+ i)))
-                                                          name)))
-                                                  (format t "+~A for ~A~%" case-name (nth i inner-func))
-                                                  case-name)))
-                                         (loop for f in inner-func
-                                               for i from 0
-                                               collect `(define-cl-test
-                                                          ,f
-                                                          ,(get-case-name i)
-                                                          ',data-list))))
-                                   ,name-data-list))))))))
-    (inner-define func name-data-list)))
+  (once-only (func name-data-list)
+    `(progn 
+       (if *print-details* (format t ":~A ~A~%" ,func (listp ,func)))
+       (if *print-details* (format t ".~A~%" ,name-data-list))
+       (let ((inner-func
+               (if (functionp ,func)
+                 (list ,func)
+                 ,func)))
+         (if *print-details* (loop for f in inner-func do (format t "+ ~A~%" f)))
+         `(list ,@(reduce
+                    #'append
+                    (call-on-list-of-pairs
+                      #'(lambda (name data-list)
+                          (flet ((get-case-name (i)
+                                   (let ((case-name
+                                           (if (< 1 (length inner-func))
+                                             (intern (format nil "~A-~A" name (1+ i)))
+                                             name)))
+                                     (format t "+~A for ~A~%" case-name (nth i inner-func))
+                                     case-name)))
+                            (loop for f in inner-func
+                                  for i from 0
+                                  collect `(define-cl-test
+                                             ,f
+                                             ,(get-case-name i)
+                                             ',data-list))))
+                      ,name-data-list)))))))
+
+(defmacro define-cl-tests (func name-data-list)
+  `(execute-macro inner-define-cl-tests ,func ,name-data-list))

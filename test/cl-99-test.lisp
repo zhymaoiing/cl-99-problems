@@ -2,8 +2,6 @@
 
 (in-package #:cl-99-test)
 
-(defvar *print-details*)
-
 (defvar *this-package* (find-package 'cl-99-test))
 
 (defun list-cl-99-tests ()

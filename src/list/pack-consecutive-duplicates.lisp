@@ -9,6 +9,6 @@
     (lambda (lst) (list (list (first lst))))
     (lambda (r x) 
       (if (equal (first (first r)) x)
-                    (push x (first r))
-                    (push (list x) r))
+        (push x (first r))
+        (push (list x) r))
       r)))

@@ -20,7 +20,11 @@
                                            (:file "flatten")
                                            (:file "operate-on-consecutive-duplicates")
                                            (:file "remove-consecutive-duplicates")
-                                           (:file "pack-consecutive-duplicates")))))
+                                           (:file "pack-consecutive-duplicates")
+                                           (:file "length-consecutive-duplicates"
+                                            :depends-on ("pack-consecutive-duplicates"))
+                                           (:file "length-consecutive-duplicates-modified"
+                                            :depends-on ("length-consecutive-duplicates"))))))
                (:module "test"
                 :components ((:file "test-package")
                              (:file "utility"
@@ -31,9 +35,7 @@
                               :components ((:file "list-simple")
                                            (:file "palindrome-p")
                                            (:file "flatten")
-                                           ;                       (:file "remove-consecutive-duplicates")    
-                                           ;                      (:file "pack-consecutive-duplicates")
-                                           ))
+                                           (:file "consecutive-duplicates")))
                              (:file "cl-99-test"
                               :depends-on ("test-package"
                                            "list"))))))
