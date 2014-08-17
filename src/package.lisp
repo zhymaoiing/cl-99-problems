@@ -15,9 +15,24 @@
            :my-reverse-loop
            :palindrome-p
            :flatten
-           :remove-consecutive-duplicates
-           :pack-consecutive-duplicates
-           :length-consecutive-duplicates
-           :length-consecutive-duplicates-pre
-           :length-consecutive-duplicates-modified
-           :length-consecutive-duplicates-modified-pre))
+           :my-compress
+           :my-pack
+           :run-length
+           :run-length-direct
+           :run-length*
+           :run-length*-direct
+           :decode-run-length
+           :my-dupli
+           :my-repli
+           :drop-rec
+           :drop-ite
+           :drop-loop
+           )
+  ;; Utility symbols
+  (:export :with-gensyms
+           :once-only
+           :execute-macro
+           :duplicate
+           :join
+           :symbol-function-or-nil
+           ))

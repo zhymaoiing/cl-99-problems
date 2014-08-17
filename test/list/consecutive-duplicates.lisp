@@ -2,41 +2,29 @@
 
 ;; P08 (**) Eliminate consecutive duplicates of list elements.
 
-(define-cl-test
-  #'remove-consecutive-duplicates
-  compress
-  (generate-consecutive-duplicate-test-cases
-    #'(lambda (lst)
-        (loop for pr in lst
-              collect (first pr)))))
+(define-cl-test-named my-compress (generate-cd-test-cases #'first))
 
 ;; P09 (**) Pack consecutive duplicates of list elements into sublists.
 
-(define-cl-test
-  #'pack-consecutive-duplicates
-  pack
-  (generate-consecutive-duplicate-test-cases
-    #'(lambda (lst)
-        (loop for pr in lst
-              collect (loop repeat (second pr)
-                            collect (first pr))))))
+(define-cl-test-named
+  my-pack
+  (generate-cd-test-cases
+    #'(lambda (pr) (loop repeat (second pr) collect (first pr)))))
 
 ;; P10 (*) Run-length encoding of a list.
 
 (define-cl-tests
-  '(#'length-consecutive-duplicates #'length-consecutive-duplicates-pre)
-  `((encode
-     ,(generate-consecutive-duplicate-test-cases
-        #'(lambda (lst)
-            (loop for pr in lst
-                  collect (reverse pr)))))))
+  '(#'run-length #'run-length-direct)
+  `((run-length ,(generate-cd-test-cases #'reverse))))
 
 ;; P11 (*) Modified run-length encoding.
 
 (define-cl-tests
-  '(#'length-consecutive-duplicates-modified #'length-consecutive-duplicates-modified-pre)
-  `((encode*
-     ,(generate-consecutive-duplicate-test-cases
-        #'(lambda (lst)
-            (loop for pr in lst
-                  collect (if (= 1 (second pr)) (first pr) (reverse pr))))))))
+  '(#'run-length* #'run-length*-direct)
+  `((run-length*
+     ,(generate-cd-test-cases
+        #'(lambda (pr) (if (= 1 (second pr)) (first pr) (reverse pr)))))))
+
+;; P12 (**) Decode a modified run-length encoded list.
+
+(define-cl-test-named decode-run-length (generate-decode-cd-test-cases))

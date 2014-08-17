@@ -9,8 +9,10 @@
   :depends-on (#:lisp-unit)
   :components ((:module "src"
                 :components ((:file "package")
+                             (:file "utility")
                              (:module "list"
-                              :depends-on ("package")
+                              :depends-on ("package"
+                                           "utility")
                               :components ((:file "my-last")
                                            (:file "my-but-last")
                                            (:file "my-nth")
@@ -18,24 +20,32 @@
                                            (:file "my-reverse")
                                            (:file "palindrome-p")
                                            (:file "flatten")
-                                           (:file "operate-on-consecutive-duplicates")
-                                           (:file "remove-consecutive-duplicates")
-                                           (:file "pack-consecutive-duplicates")
-                                           (:file "length-consecutive-duplicates"
-                                            :depends-on ("pack-consecutive-duplicates"))
-                                           (:file "length-consecutive-duplicates-modified"
-                                            :depends-on ("length-consecutive-duplicates"))))))
+                                           (:file "my-compress")
+                                           (:file "my-pack")
+                                           (:file "run-length"
+                                            :depends-on ("my-pack"))
+                                           (:file "run-length-modified"
+                                            :depends-on ("run-length"))
+                                           (:file "decode-run-length")
+                                           (:file "my-duplicate")
+                                           (:file "drop")
+                                           ))))
                (:module "test"
+                :depends-on ("src")
                 :components ((:file "test-package")
-                             (:file "utility"
+                             (:file "test-utility"
                               :depends-on ("test-package"))
                              (:module "list"
                               :depends-on ("test-package"
-                                           "utility")
+                                           "test-utility")
                               :components ((:file "list-simple")
                                            (:file "palindrome-p")
                                            (:file "flatten")
-                                           (:file "consecutive-duplicates")))
+                                           (:file "consecutive-duplicates")
+                                           (:file "list-duplicate")
+                                           (:file "list-drop")
+                                           ))
                              (:file "cl-99-test"
                               :depends-on ("test-package"
+                                           "test-utility"
                                            "list"))))))

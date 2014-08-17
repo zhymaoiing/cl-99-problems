@@ -18,4 +18,8 @@
 
 (defun my-length-loop (lst)
   "get the length of a list using loop"
-  (loop for elem in lst count elem))
+  ;; cannot use count here because it only count forms that are true
+  ;; e.g., length of (1 nil) is 2
+  (loop for elem in lst
+        for i from 1
+        maximize i))

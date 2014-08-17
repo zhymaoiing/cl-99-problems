@@ -4,12 +4,10 @@
 
 (defun my-nth-rec (lst n)
   "get the nth (index from 0) element of a list recursively"
-  (labels ((inner-nth-rec (lst n)
-             (cond
-               ((not lst) nil)
-               ((= 0 n) (first lst))
-               (t (inner-nth-rec (rest lst) (- n 1))))))
-    (inner-nth-rec lst n)))
+  (cond
+    ((not lst) nil)
+    ((= 0 n) (first lst))
+    (t (my-nth-rec (rest lst) (- n 1)))))
 
 (defun my-nth-loop (lst n)
   "get the nth (index from 0) element of a list using loop"
