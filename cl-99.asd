@@ -29,21 +29,28 @@
                                            (:file "decode-run-length")
                                            (:file "my-duplicate")
                                            (:file "drop")
+                                           (:file "split")
+                                           (:file "slice")
                                            ))))
                (:module "test"
                 :depends-on ("src")
                 :components ((:file "test-package")
                              (:file "test-utility"
                               :depends-on ("test-package"))
+                             (:file "verify"
+                              :depends-on ("test-package"))
                              (:module "list"
                               :depends-on ("test-package"
-                                           "test-utility")
+                                           "test-utility"
+                                           "verify")
                               :components ((:file "list-simple")
                                            (:file "palindrome-p")
                                            (:file "flatten")
                                            (:file "consecutive-duplicates")
                                            (:file "list-duplicate")
                                            (:file "list-drop")
+                                           (:file "list-split")
+                                           (:file "list-slice")
                                            ))
                              (:file "cl-99-test"
                               :depends-on ("test-package"

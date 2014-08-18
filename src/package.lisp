@@ -27,6 +27,8 @@
            :drop-rec
            :drop-ite
            :drop-loop
+           :split
+           :slice
            )
   ;; Utility symbols
   (:export :with-gensyms
