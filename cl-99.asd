@@ -31,6 +31,7 @@
                                            (:file "drop")
                                            (:file "split")
                                            (:file "slice")
+                                           (:file "rotate")
                                            ))))
                (:module "test"
                 :depends-on ("src")
@@ -47,10 +48,11 @@
                                            (:file "palindrome-p")
                                            (:file "flatten")
                                            (:file "consecutive-duplicates")
-                                           (:file "list-duplicate")
-                                           (:file "list-drop")
-                                           (:file "list-split")
-                                           (:file "list-slice")
+                                           (:file "duplicate")
+                                           (:file "drop")
+                                           (:file "split")
+                                           (:file "slice")
+                                           (:file "rotate")
                                            ))
                              (:file "cl-99-test"
                               :depends-on ("test-package"

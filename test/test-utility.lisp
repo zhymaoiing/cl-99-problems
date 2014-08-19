@@ -144,7 +144,7 @@
        (if *print-details* (format t ".~A~%" ,name-data-list))
        ,(with-gensyms (inner-func)
           `(let ((,inner-func
-                   (if (functionp ,func)
+                   (if (equal 'function (first ,func))
                      (list ,func)
                      ,func)))
              (if *print-details* (loop for f in ,inner-func do (format t "+ ~A~%" f)))

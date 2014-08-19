@@ -24,11 +24,13 @@
            :decode-run-length
            :my-dupli
            :my-repli
-           :drop-rec
-           :drop-ite
-           :drop-loop
+           :remove-at-rec
+           :remove-at-ite
+           :remove-at-loop
            :split
            :slice
+           :drop-loop
+           :rotate
            )
   ;; Utility symbols
   (:export :with-gensyms

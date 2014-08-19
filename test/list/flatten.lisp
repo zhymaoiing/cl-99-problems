@@ -3,7 +3,7 @@
 (in-package #:cl-99-test)
 
 (define-cl-tests
-  '(#'flatten)
+  '#'flatten
   '((flatten-simple
       (((()) nil)
        (((1)) (1))
